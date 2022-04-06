@@ -1,4 +1,4 @@
-# A Plugin that integrates the AMD AMF encoder into OBS Studio
+# A Plugin that integrates the AMD AMF encoder into Volume-OBS Studio
 # Copyright (C) 2016 - 2017 Michael Fabian Dirks
 #
 # This program is free software; you can redistribute it and/or modify
@@ -89,13 +89,13 @@ Configure_File(
 
 # Windows Specific Resource Definition
 If(WIN32)
-	Set(PROJECT_PRODUCT_NAME "OBS Studio AMD Encoder")
+	Set(PROJECT_PRODUCT_NAME "Volume-OBS Studio AMD Encoder")
 	Set(PROJECT_DESCRIPTION "")
 	Set(PROJECT_COMPANY_NAME "Xaymar")
 	Set(PROJECT_COPYRIGHT "Xaymar © 2016 - 2018")
 	Set(PROJECT_LEGAL_TRADEMARKS_1 "Advanced Micro Devices, AMD, AMD Ryzen, Ryzen, AMD Radeon and Radeon are Trademarks of Advanced Micro Devices.")
 	Set(PROJECT_LEGAL_TRADEMARKS_2 "")
-	Set(PROJECT_DESCRIPTION "AMD Encoder integration for OBS Studio")
+	Set(PROJECT_DESCRIPTION "AMD Encoder integration for Volume-OBS Studio")
 
 	Configure_File(
 		"${PROJECT_SOURCE_DIR}/cmake/version.rc.in"
@@ -138,12 +138,12 @@ set(${PropertyPrefix}OBS_DOWNLOAD FALSE CACHE BOOL "Use downloaded obs-studio bu
 mark_as_advanced(FORCE OBS_NATIVE OBS_PACKAGE OBS_REFERENCE OBS_DOWNLOAD)
 
 if(NOT TARGET libobs)
-	set(${PropertyPrefix}OBS_STUDIO_DIR "" CACHE PATH "OBS Studio Source/Package Directory")
-	set(${PropertyPrefix}OBS_DOWNLOAD_VERSION "24.0.1-ci" CACHE STRING "OBS Studio Version to download")
+	set(${PropertyPrefix}OBS_STUDIO_DIR "" CACHE PATH "Volume-OBS Studio Source/Package Directory")
+	set(${PropertyPrefix}OBS_DOWNLOAD_VERSION "24.0.1-ci" CACHE STRING "Volume-OBS Studio Version to download")
 endif()
 
 if(NOT ${PropertyPrefix}OBS_NATIVE)
-	set(${PropertyPrefix}OBS_DEPENDENCIES_DIR "" CACHE PATH "Path to OBS Dependencies")
+	set(${PropertyPrefix}OBS_DEPENDENCIES_DIR "" CACHE PATH "Path to Volume-OBS Dependencies")
 	set(CMAKE_PACKAGE_PREFIX "${CMAKE_BINARY_DIR}" CACHE PATH "Path for generated archives.")
 	set(CMAKE_PACKAGE_NAME "${PROJECT_NAME}" CACHE STRING "Name for the generated archives.")
 	set(CMAKE_PACKAGE_SUFFIX_OVERRIDE "" CACHE STRING "Override for the suffix.")
@@ -153,7 +153,7 @@ endif()
 # Dependencies
 ################################################################################
 
-# Detect OBS Studio Type
+# Detect Volume-OBS Studio Type
 if(TARGET libobs)
 	message(STATUS "${PROJECT_NAME}: Using native obs-studio.")
 	CacheSet(${PropertyPrefix}OBS_NATIVE TRUE)
@@ -166,7 +166,7 @@ else()
 		message(STATUS "${PROJECT_NAME}: Using referenced obs-studio.")
 		CacheSet(${PropertyPrefix}OBS_REFERENCE TRUE)
 	else()
-		message(STATUS "${PROJECT_NAME}: No OBS Studio detected, using downloadable prebuilt binaries.")
+		message(STATUS "${PROJECT_NAME}: No Volume-OBS Studio detected, using downloadable prebuilt binaries.")
 		CacheSet(${PropertyPrefix}OBS_DOWNLOAD TRUE)
 		if (WIN32)
 			set(${PropertyPrefix}OBS_DOWNLOAD_URL "https://github.com/Xaymar/obs-studio/releases/download/${OBS_DOWNLOAD_VERSION}/obs-studio-${ARCH}-0.0.0.0-vs2017.7z")
@@ -190,7 +190,7 @@ If(NOT ${PropertyPrefix}OBS_NATIVE)
 	Include("cmake/cppcheck.cmake")
 EndIf()
 
-# Load OBS Studio
+# Load Volume-OBS Studio
 If(${PropertyPrefix}OBS_NATIVE)
 	Option(BUILD_AMD_ENCODER "Build AMD Encoder module" ON)
 	If (NOT BUILD_AMD_ENCODER)
@@ -298,7 +298,7 @@ Target_Include_Directories(${PROJECT_NAME}
 		"${CMAKE_SOURCE_DIR}"
 )
 
-# OBS Studio
+# Volume-OBS Studio
 If(${PropertyPrefix}OBS_NATIVE)
 	Target_Link_Libraries(${PROJECT_NAME}
 		libobs

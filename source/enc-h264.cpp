@@ -1,5 +1,5 @@
 /*
- * A Plugin that integrates the AMD AMF encoder into OBS Studio
+ * A Plugin that integrates the AMD AMF encoder into Volume-OBS Studio
  * Copyright (C) 2016 - 2018 Michael Fabian Dirks
  *
  * This program is free software; you can redistribute it and/or modify
@@ -102,12 +102,12 @@ try {
 
 void Plugin::Interface::H264Interface::get_defaults(obs_data_t* data) noexcept
 {
-#pragma region OBS - Enforce Streaming Service Restrictions
+#pragma region Volume-OBS - Enforce Streaming Service Restrictions
 	obs_data_set_default_int(data, "keyint_sec", 0);
 	obs_data_set_default_string(data, "rate_control", "");
 	obs_data_set_default_string(data, "profile", "");
 	obs_data_set_default_string(data, "preset", "");
-#pragma endregion OBS - Enforce Streaming Service Restrictions
+#pragma endregion Volume-OBS - Enforce Streaming Service Restrictions
 
 	// Preset
 	obs_data_set_default_int(data, P_PRESET, static_cast<int64_t>(Presets::None));
@@ -1270,7 +1270,7 @@ Plugin::Interface::H264Interface::H264Interface(obs_data_t* data, obs_encoder_t*
 
 	m_Encoder = encoder;
 
-	// OBS Settings
+	// Volume-OBS Settings
 	uint32_t                        obsWidth     = obs_encoder_get_width(encoder);
 	uint32_t                        obsHeight    = obs_encoder_get_height(encoder);
 	video_t*                        obsVideoInfo = obs_encoder_video(encoder);
@@ -1352,8 +1352,8 @@ Plugin::Interface::H264Interface::H264Interface(obs_data_t* data, obs_encoder_t*
 	} catch (...) {
 	}
 
-	// OBS - Enforce Streaming Service Restrictions
-#pragma region OBS - Enforce Streaming Service Restrictions
+	// Volume-OBS - Enforce Streaming Service Restrictions
+#pragma region Volume-OBS - Enforce Streaming Service Restrictions
 	{
 		// Profile
 		const char* p_str = obs_data_get_string(data, "profile");
@@ -1386,7 +1386,7 @@ Plugin::Interface::H264Interface::H264Interface(obs_data_t* data, obs_encoder_t*
 			obs_data_unset_user_value(data, "preset");
 		}
 	}
-#pragma endregion OBS - Enforce Streaming Service Restrictions
+#pragma endregion Volume-OBS - Enforce Streaming Service Restrictions
 
 	// Dynamic Properties (Can be changed during Encoding)
 	this->update(data);
@@ -1532,7 +1532,7 @@ bool Plugin::Interface::H264Interface::update(obs_data_t* data)
 	m_VideoEncoder->SetMotionEstimationHalfPixelEnabled(!!(obs_data_get_int(data, P_MOTIONESTIMATION) & 1));
 	m_VideoEncoder->SetMotionEstimationQuarterPixelEnabled(!!(obs_data_get_int(data, P_MOTIONESTIMATION) & 2));
 
-#pragma region OBS Enforce Streaming Service Settings
+#pragma region Volume-OBS Enforce Streaming Service Settings
 	{
 		// Rate Control Method
 		const char* t_str = obs_data_get_string(data, "rate_control");
@@ -1567,7 +1567,7 @@ bool Plugin::Interface::H264Interface::update(obs_data_t* data)
 			obs_data_unset_user_value(data, "keyint_sec");
 		}
 	}
-#pragma endregion OBS Enforce Streaming Service Settings
+#pragma endregion Volume-OBS Enforce Streaming Service Settings
 
 	m_VideoEncoder->SetDebug(obs_data_get_bool(data, P_DEBUG));
 
