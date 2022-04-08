@@ -48,7 +48,7 @@ var
 begin
   // initialize default path, which will be returned when the following registry
   // key queries fail due to missing keys or for some different reason
-  Result := '{pf}\obs-studio';
+  Result := '{pf}\volume-obs';
   // query the first registry value; if this succeeds, return the obtained value
   if RegQueryStringValue(HKLM32, 'SOFTWARE\Volume-OBS Studio', '', InstallPath) then
     Result := InstallPath

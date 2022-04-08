@@ -55,7 +55,7 @@ pipeline {
   }
   environment {
     CMAKE_SYSTEM_VERSION = '10.0.17134.0'
-    PACKAGE_PREFIX = 'amd-encoder-for-obs-studio'
+    PACKAGE_PREFIX = 'amd-encoder-for-volume-obs'
     INNOSETUP_URL = 'http://www.jrsoftware.org/download.php/is-unicode.exe'
     CMAKE_INSTALL_PREFIX = 'build/distrib'
     CMAKE_PACKAGE_NAME = 'obs-amd-encoder'
