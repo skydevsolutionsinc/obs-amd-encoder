@@ -1,5 +1,5 @@
 /*
- * A Plugin that integrates the AMD AMF encoder into OBS Studio
+ * A Plugin that integrates the AMD AMF encoder into Volume-OBS Studio
  * Copyright (C) 2016 - 2018 Michael Fabian Dirks
  *
  * This program is free software; you can redistribute it and/or modify
@@ -62,13 +62,13 @@ const char* Plugin::Interface::H265Interface::get_name(void*) noexcept
 
 void Plugin::Interface::H265Interface::get_defaults(obs_data_t* data) noexcept
 {
-#pragma region OBS - Enforce Streaming Service Restrictions
+#pragma region Volume-OBS - Enforce Streaming Service Restrictions
 	obs_data_set_default_int(data, "bitrate", 0);
 	obs_data_set_default_int(data, "keyint_sec", 0);
 	obs_data_set_default_string(data, "rate_control", "");
 	obs_data_set_default_string(data, "profile", "");
 	obs_data_set_default_string(data, "preset", "");
-#pragma endregion OBS - Enforce Streaming Service Restrictions
+#pragma endregion Volume-OBS - Enforce Streaming Service Restrictions
 
 	// Static
 	//obs_data_set_default_int(data, P_USAGE, static_cast<int64_t>(Usage::Transcoding));
@@ -824,7 +824,7 @@ Plugin::Interface::H265Interface::H265Interface(obs_data_t* data, obs_encoder_t*
 
 	m_Encoder = encoder;
 
-	// OBS Settings
+	// Volume-OBS Settings
 	uint32_t                        obsWidth     = obs_encoder_get_width(encoder);
 	uint32_t                        obsHeight    = obs_encoder_get_height(encoder);
 	video_t*                        obsVideoInfo = obs_encoder_video(encoder);
@@ -964,8 +964,8 @@ Plugin::Interface::H265Interface::H265Interface(obs_data_t* data, obs_encoder_t*
 	m_VideoEncoder->SetMotionEstimationHalfPixelEnabled(!!(obs_data_get_int(data, P_MOTIONESTIMATION) & 1));
 	m_VideoEncoder->SetMotionEstimationQuarterPixelEnabled(!!(obs_data_get_int(data, P_MOTIONESTIMATION) & 2));
 
-	// OBS - Enforce Streaming Service Restrictions
-#pragma region OBS - Enforce Streaming Service Restrictions
+	// Volume-OBS - Enforce Streaming Service Restrictions
+#pragma region Volume-OBS - Enforce Streaming Service Restrictions
 	{
 		// Profile
 		const char* p_str = obs_data_get_string(data, "profile");
@@ -1008,7 +1008,7 @@ Plugin::Interface::H265Interface::H265Interface(obs_data_t* data, obs_encoder_t*
 			obs_data_unset_user_value(data, "rate_control");
 		}
 	}
-#pragma endregion OBS - Enforce Streaming Service Restrictions
+#pragma endregion Volume-OBS - Enforce Streaming Service Restrictions
 
 	// Dynamic Properties (Can be changed during Encoding)
 	this->update(data);
